@@ -59,9 +59,6 @@ class GameFragment : Fragment() {
 
         binding.gameViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-
-
-
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
             if (hasFinished) {
                 onEndGame()
