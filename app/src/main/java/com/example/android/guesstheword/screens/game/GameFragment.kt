@@ -56,9 +56,8 @@ class GameFragment : Fragment() {
 
         this.viewModel = ViewModelProviders.of(this).get(GameViewModel::class.java)
 
-        binding.correctButton.setOnClickListener { onCorrect() }
-        binding.skipButton.setOnClickListener { onSkip() }
-        binding.endGameButton.setOnClickListener { onEndGame() }
+
+        binding.gameViewModel = viewModel
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
             binding.scoreText.text = newScore.toString()
         })
@@ -83,14 +82,6 @@ class GameFragment : Fragment() {
 
     /** Methods for buttons presses **/
 
-    private fun onSkip() {
-        viewModel.onSkip()
-
-    }
-
-    private fun onCorrect() {
-        viewModel.onCorrect()
-    }
 
     /**
      * Moves to the next word in the list
@@ -104,6 +95,6 @@ class GameFragment : Fragment() {
         val action = GameFragmentDirections.actionGameToScore()
         action.score = viewModel.score.value ?: 0
         NavHostFragment.findNavController(this).navigate(action)
-        viewModel.onGameComplete()
+
     }
 }
