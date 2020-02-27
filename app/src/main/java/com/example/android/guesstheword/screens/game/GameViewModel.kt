@@ -28,6 +28,16 @@ class GameViewModel:ViewModel(){
     val currentTimeString = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime(time)
     }
+
+
+    val currentWordDetails = Transformations.map(word) { words ->
+        val randomPosition = (1..words.length).random()
+        "" + words.length + " letters" + "\nThe letter at position " + randomPosition + " is " + words.get(randomPosition - 1).toUpperCase()
+
+    }
+
+
+
     private val timer: CountDownTimer
     // The list of words - the front of the list is the next word to guess
     private lateinit var wordList: MutableList<String>
@@ -88,6 +98,7 @@ class GameViewModel:ViewModel(){
             //Select and remove a word from the list
             resetList()
             _word.value = wordList.removeAt(0)
+
         } else {
             onGameFinish()
         }
